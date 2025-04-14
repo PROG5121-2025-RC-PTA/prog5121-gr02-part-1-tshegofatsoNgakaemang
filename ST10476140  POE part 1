@@ -1,0 +1,104 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+package com.mycompany.poe; // declaring the pakage this class belongs to
+
+/**
+ *
+ * @author USER-PC
+ */
+//importing our scanner,list and arrylist
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOption
+
+public class App {
+} //variable to track wether you are logged in or not
+    private static boolean isUserLoggedIn = false;
+ //instance of login class to handle login-related functionality
+    private static Login loginSystem = new Login();
+ //tracks the total number of messages sent
+    private static int totalMessagesSent = 0;
+  //stores the list of messages
+    private static List<Message> sentMessages = new ArrayList<>();
+  //stores all messages that have been saved
+    private static List<Message> storedMessages = new ArrayList<>();
+  //keeps count of the number of messages
+    private static int messageCounter = 0;
+    //main method entry point of the program
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Part 1
+       // while the user is not logged in keep prompting them
+        while (!isUserLoggedIn) {
+            System.out.println();//blank linr for spacing
+
+          //display welcome message and menu options
+            System.out.println("Welcome to quick chat, register and login!");
+                 System.out.println();
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit Registration/Login");
+            System.out.print("Enter your choice: ");// ask user for menu choice
+            String part1Choice = scanner.nextLine();// read user input
+
+           //handle the menu option using swotch-case
+            switch (part1Choice) {
+                case "1"://user chooses to register
+                    System.out.println();
+                    System.out.println("=========================");
+                    System.out.println("Registration");
+                      System.out.println();
+
+                  //prompting for and read user registration details
+                    System.out.print("Enter username: ");
+                    String username = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String password = scanner.nextLine();
+                    System.out.print("Enter first name: ");
+                    String firstName = scanner.nextLine();
+                    System.out.print("Enter last name: ");
+                    String lastName = scanner.nextLine();
+                    System.out.print("Enter South African cell phone number (e.g., +27838968976): ");
+                    String phoneNumber = scanner.nextLine();
+
+                    String registrationResult = loginSystem.registerUser(username, password, firstName, lastName, phoneNumber);
+                    System.out.println(registrationResult);
+                    // will user these values to register a user later
+                    break;
+
+                case "2":// user to log in
+                    System.out.println();
+                    System.out.println("=====================");
+                    System.out.println("Login");
+                    System.out.println();
+                  //prompting for login credentials
+                    System.out.print("Enter username: ");
+                    String loginUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String loginPassword = scanner.nextLine();
+                 //attempt to login in the user using the login system
+                    boolean loginSuccess = loginSystem.loginUser(loginUsername, loginPassword);
+
+                    //get and pring the login status message
+                    String loginStatus = loginSystem.returnLoginStatus(loginSuccess);
+                    System.out.println(loginStatus);
+
+                    //if lgin is successful set flag to true or break loop
+                    isUserLoggedIn = loginSuccess;
+                    break;
+
+                case "3"://user chooses to exit the login menu
+                    System.out.println("Exiting Registration/Login.");
+                    break;
+
+                default:// handle invalid input
+                    System.out.println("Invalid choice. Please try again.");
+            }
+          //additional check outside switch
+            if (part1Choice.equals("3")) break; 
+        }
+       
+}
