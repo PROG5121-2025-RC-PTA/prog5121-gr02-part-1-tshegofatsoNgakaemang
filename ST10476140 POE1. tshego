@@ -1,0 +1,96 @@
+
+
+package com.mycompany.poe;
+
+/**
+ *
+ * @author Tshego
+ */
+import java.util.Scanner;
+
+
+
+public class App {
+
+    public static void main(String[] args) {
+      
+        //PART 1 POE
+          Scanner scanner = new Scanner(System.in);//scanner for user input 
+        Login login = new Login();                // create an instance for the login class 
+
+        while (true) {
+            // display menu options 
+            System.out.println();
+            System.out.println("Welcome To QuickChat, Login And Register!");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            String menuOption = scanner.nextLine();// get user menu choice 
+
+            switch (menuOption) {
+                case "1":
+                    //user chose to register 
+                    System.out.println();
+                    System.out.println("======================");
+                          System.out.println();
+                    System.out.println("Register");
+                     System.out.println();
+                     //enter user name
+                    System.out.print("Enter username: ");
+                    String registerUsername = scanner.nextLine();
+                    // prompting user for password
+                    System.out.print("Enter password: ");
+                    String registerPassword = scanner.nextLine();
+                    System.out.print("Enter first name: ");
+                    String registerFirstName = scanner.nextLine();
+                    System.out.print("Enter last name: ");
+                    String registerLastName = scanner.nextLine();
+                    System.out.print("Enter South African cell phone number (e.g., +2781234567): ");
+                    String registerCellPhoneNumber = scanner.nextLine();
+
+                    //calling the register user ,ehod in the login class to process registration
+                    String registrationResult = login.registerUser(registerUsername, registerPassword, registerFirstName, registerLastName, registerCellPhoneNumber);
+                    //output the result of the registration process to the cobsole 
+                    System.out.println(registrationResult);
+                    break;
+                    
+                //option 2 to login in a existing user    
+                case "2":
+                    
+                     System.out.println();
+                    System.out.println("======================");
+                          System.out.println();
+                    System.out.println("Login");
+                       System.out.println();
+                       
+                   // prompting user for login credentials     
+                    System.out.print("Enter username: ");
+                    String loginUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String loginPassword = scanner.nextLine();
+
+                    //calling the login user method in the login class to authenticate the user
+                    boolean loginSuccess = login.loginUser(loginUsername, loginPassword);
+                    //get a string representaition of the login status
+                    String loginStatus = login.returnLoginStatus(loginSuccess);
+                    //output the login status to the user 
+                    System.out.println(loginStatus);
+                    break;
+
+                    // exit the application
+                case "3":
+                    System.out.println("Exiting. Goodbye!");
+                    //close the scanner resourse before leaving 
+                    scanner.close();
+                    // return from main method to terminate the program 
+                    return;
+
+               //default case handle invalid menu options      
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
